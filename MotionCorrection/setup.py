@@ -37,6 +37,8 @@ class CMakeBuild(build_ext):
         cmake_args = [
             f"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={extdir}",
             f"-DPYTHON_EXECUTABLE={sys.executable}",
+            f"-DPython3_EXECUTABLE={sys.executable}",
+            "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
         ]
 
         cfg = "Debug" if self.debug else "Release"

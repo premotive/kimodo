@@ -86,7 +86,7 @@ void TrajectoryCorrector::computeDiffMats(
     Eigen::SparseMatrix<double> I(N, N);
     for (uint32_t i = 0; i < N; ++i)
     {
-        tripletList.emplace_back(i, i, 1);
+        tripletList.emplace_back(i, i, 1.0);
     }
     I.setFromTriplets(tripletList.begin(), tripletList.end());
 
@@ -113,7 +113,7 @@ void TrajectoryCorrector::computeDiffMats(
 
     // a = -x + 2 (T x + t_rhs) - (T (T x + t_rhs) + t_rhs)
     // a = (-I + 2 T - T^2) x + t_rhs - T t_rhs
-    A = 2 * T - I - T * T;
+    A = 2.0 * T - I - T * T;
     if (a_rhs)
     {
         *a_rhs = t_rhs - T * t_rhs;
@@ -196,7 +196,7 @@ TrajectoryCorrector::TrajectoryCorrector(
     Eigen::SparseMatrix<double> I(N, N);
     for (uint32_t i = 0; i < N; ++i)
     {
-        tripletList.emplace_back(i, i, 1.0f);
+        tripletList.emplace_back(i, i, 1.0);
     }
     I.setFromTriplets(tripletList.begin(), tripletList.end());
 
@@ -241,7 +241,7 @@ TrajectoryCorrector::TrajectoryCorrector(
     for (uint32_t i = 0; i < m_unconstrained_locs.size(); ++i)
     {
         uint32_t ifull = m_unconstrained_locs[i];
-        tripletList.emplace_back(i, ifull, 1.0f);
+        tripletList.emplace_back(i, ifull, 1.0);
     }
     S.setFromTriplets(tripletList.begin(), tripletList.end());
     M = S * M * S.transpose();
